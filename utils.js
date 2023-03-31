@@ -1,4 +1,5 @@
 const Values = require('values.js')
+const vscode = require('vscode')
 
 /**
  * @param {number} steps
@@ -9,6 +10,7 @@ function generatePalette(steps, color) {
   if (!generator.setColor(color)) {
     return null
   }
+  const opacityModifierSyntax = vscode.workspace.getConfiguration('tailwindshades').get('opacityModifierSyntax')
 
   const palette = generator
     .all(steps)
@@ -16,7 +18,7 @@ function generatePalette(steps, color) {
     .reduce(
       (ac, c, index) => ({
         ...ac,
-        [(index + 1) * 100]: c.hexString(),
+        [(index + 1) * 100]: opacityModifierSyntax ? `${c.rgb[0]}, ${c.rgb[1]}, ${c.rgb[2]}` : c.hexString(),
       }),
       {},
     )

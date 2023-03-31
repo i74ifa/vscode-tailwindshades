@@ -37,6 +37,16 @@
   ],
   "main": "./extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Opacity modifier syntax",
+      "properties": {
+        "tailwindshades.opacityModifierSyntax": {
+          "type": "boolean",
+          "default": false,
+          "description": "Support tailwindcss opacity modifier syntax"
+        }
+      }
+    },
     "commands": [
       {
         "category": "TailwindShades",

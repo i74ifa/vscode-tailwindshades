@@ -32,7 +32,7 @@ const activate = (context) => {
       const editor = vscode.window.activeTextEditor
       const selectedText = editor.document.getText(editor.selection)
       const generator = new Values()
-
+      const opacityModifierSyntax = vscode.workspace.getConfiguration('tailwindshades').get('opacityModifierSyntax')
       /**
        * @param {number} steps
        */
@@ -43,7 +43,7 @@ const activate = (context) => {
           .reduce(
             (ac, c, index) => ({
               ...ac,
-              [(index + 1) * 100]: c.hexString(),
+              [(index + 1) * 100]: opacityModifierSyntax ? `rgba(${c.rgb[0]}, ${c.rgb[1]}, ${c.rgb[2]}, <alpha-value>)`: c.hexString(),
             }),
             {},
           )
